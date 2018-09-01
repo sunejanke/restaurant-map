@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="Model/Location.js"></script>
+    <script type="text/javascript" src="Model/LocationType.js"></script>
+    <script type="text/javascript" src="ViewModel/MapViewModel.js"></script>
+    <script type="text/javascript" src="Foursquare.js"></script>
+    <!-- function that binds the HTML to the MapViewModel  -->
+    <script type="text/javascript"> function LoadBinding() { ko.applyBindings(new MapViewModel()) } </script> 
+    <!-- When the page is loaded the binding function is called  -->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0u7dyYCajpeSjK7URaAHKJijEE2MdHL8&callback=LoadBinding" onerror="MapError()"
+    type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="Knockout.js"></script>
+        <!-- &callback=initMap -->
+   
+</head>
+<body>
+        <div class="wrapper">
+            <div class="header">
+                <h1 data-bind="text: neighborhoodName"></h1>
+                <p data-bind="text: neighborhoodCoordinates">text</p>        
+            </div>
+            <div class="menu">
+                    <h2>Filter Menu</h2>
+                    <h3>Show the view by Type</h3>
+                    <!-- http://knockoutjs.com/documentation/options-binding.html -->
+                    <select data-bind="options: availableTypes"></select>
+                    <!-- http://knockoutjs.com/documentation/component-overview.html -->
+                    <!-- Source: https://stackoverflow.com/questions/8869264/knockout-js-foreach-but-only-when-comparison-is-true -->
+                    <div data-bind="foreach: Markers" class="itemList">
+                            <!-- Only shows the info on the viewlist if visible is set to true for each marker -->
+                            <div data-bind="if: Visible, click: ShowInfobox">                                    
+                                <strong data-bind="text: Location.Title"></strong>
+                                <p data-bind="text: Location.Type.Name"></p>
+                            </div>
+                    </div>
+                </div>
+                
+                
+            <div id="map">
+
+            </div>
+        
+        </div>
+        
+    </body>
+
+</html>
+
+
